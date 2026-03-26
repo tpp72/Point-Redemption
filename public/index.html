@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Point Redemption</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar">
+  <div class="navbar-brand">
+    <span class="brand-icon">🎁</span>
+    <h1>Point <span>Redemption</span></h1>
+  </div>
+  <div class="navbar-right">
+    <span class="welcome" id="welcomeMsg">ยินดีต้อนรับ</span>
+    <span class="points-badge" id="pointsBadge">⭐ 0 คะแนน</span>
+    <button class="btn-logout" onclick="logout()">🚪 ออกจากระบบ</button>
+  </div>
+</nav>
+
+<!-- View Mode Toggle -->
+<div class="view-toggle">
+  <span>📋 View Mode:</span>
+  <button class="toggle-btn" id="btnAll" onclick="setViewMode('all')">แสดงทั้งหมด</button>
+  <button class="toggle-btn" id="btnRecent" onclick="setViewMode('recent')">ล่าสุด 5 รายการ</button>
+</div>
+
+<!-- Main -->
+<div class="container">
+
+  <!-- Admin Toolbar -->
+  <div class="admin-toolbar" id="adminToolbar">
+    <h2>➕ เพิ่มของรางวัลใหม่</h2>
+    <div class="admin-form">
+      <input type="text"   name="title"         id="newTitle"  placeholder="ชื่อของรางวัล" />
+      <input type="number" name="pointRequired"  id="newPoints" placeholder="คะแนนที่ใช้" min="1" />
+      <input type="number" name="stock"          id="newStock"  placeholder="จำนวนสต็อก"  min="0" />
+      <label class="btn-upload-wrap" for="newImage">
+        <span id="newImageLabel">🖼️ เลือกรูป</span>
+        <input type="file" id="newImage" accept="image/*" onchange="previewNewImage(this)" />
+      </label>
+      <img id="newImagePreview" class="upload-preview" />
+      <button class="btn-add" onclick="addReward()">+ เพิ่มของรางวัล</button>
+    </div>
+  </div>
+
+  <!-- New Rewards -->
+  <div class="section-header">
+    <h2>🆕 รางวัลใหม่</h2>
+    <span class="badge" id="newBadge">0</span>
+  </div>
+  <div class="rewards-grid" id="newRewardsGrid">
+    <div class="empty"><span class="empty-icon">⏳</span><p>กำลังโหลด...</p></div>
+  </div>
+
+  <!-- Popular Rewards -->
+  <div class="section-header">
+    <h2>🔥 รางวัลที่ได้รับความนิยม</h2>
+    <span class="badge" id="popularBadge">0</span>
+  </div>
+  <div class="rewards-grid" id="popularRewardsGrid">
+    <div class="empty"><span class="empty-icon">⏳</span><p>กำลังโหลด...</p></div>
+  </div>
+
+</div>
+
+<!-- Stock Edit Modal -->
+<div class="modal-overlay" id="stockModal">
+  <div class="modal">
+    <h3>✏️ แก้ไขของรางวัล</h3>
+    <p>อัปเดตสต็อกหรือเปลี่ยนรูปภาพ</p>
+
+    <label class="modal-label">จำนวนสต็อกใหม่</label>
+    <input type="number" id="stockInput" placeholder="จำนวนสต็อกใหม่" min="0" />
+
+    <label class="modal-label">เปลี่ยนรูปภาพ (ไม่บังคับ)</label>
+    <label class="btn-upload-wrap modal-upload" for="editImage">
+      <span id="editImageLabel">🖼️ เลือกรูปใหม่</span>
+      <input type="file" id="editImage" accept="image/*" onchange="previewEditImage(this)" />
+    </label>
+    <img id="editImagePreview" class="upload-preview modal-img-preview" />
+
+    <div class="modal-btns">
+      <button class="btn-cancel"  onclick="closeModal()">ยกเลิก</button>
+      <button class="btn-confirm" onclick="confirmStock()">💾 บันทึก</button>
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<script src="script.js"></script>
+</body>
+</html>
